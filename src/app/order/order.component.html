@@ -1,0 +1,21 @@
+<div class="border" *ngIf="orderReceived">
+  <h1>Order</h1>
+  <p>Name: {{ orderReceived.name }}</p>
+  <p>Address: {{ orderReceived.address }}</p>
+  <p>Email: {{ orderReceived.email }}</p>
+  <p>Phone: {{ orderReceived.phone }}</p>
+  <p *ngIf="orderReceived.express">Delivery Type: {{ "Express Delivery" }}</p>
+  <p *ngIf="!orderReceived.express">
+    Delivery Type: {{ "Non-Express Delivery" }}
+  </p>
+  <p>Delivery: {{ orderReceived.delivery }}</p>
+
+  <div *ngFor="let i of orderReceived.Items; let idx = index">
+    <p>
+      Item index: {{ idx }} ||| item: {{ i.item }}, quantity: {{ i.quantity }},
+      unit price: {{ i.unit_price }}
+    </p>
+  </div>
+
+  <p>Total Price: ${{ getTotal() }}</p>
+</div>

@@ -1,0 +1,122 @@
+<h1>Cart</h1>
+<form [formGroup]="form" (ngSubmit)="process()">
+  <table>
+    <tr>
+      <td>Name:</td>
+      <td>
+        <input
+          type="text"
+          placeholder="Name"
+          size="30"
+          formControlName="name"
+        />
+      </td>
+    </tr>
+
+    <tr>
+      <td>Address:</td>
+      <td>
+        <input
+          type="text"
+          placeholder="Address"
+          size="30"
+          formControlName="address"
+        />
+      </td>
+    </tr>
+
+    <tr>
+      <td>Email:</td>
+      <td>
+        <input
+          type="email"
+          placeholder="Email"
+          size="30"
+          formControlName="email"
+        />
+      </td>
+    </tr>
+
+    <tr>
+      <td>Phone:</td>
+      <td>
+        <input
+          type="text"
+          placeholder="Phone"
+          size="30"
+          formControlName="phone"
+        />
+      </td>
+    </tr>
+    <tr>
+      <td>Express:</td>
+      <td>
+        <input type="checkbox" formControlName="express" />
+      </td>
+    </tr>
+    <tr>
+      <td>Delivery:</td>
+      <td>
+        <select formControlName="delivery">
+          <option selected value="0900 - 1100">0900 - 1100</option>
+          <option value="1100 - 1500">1100 - 1500</option>
+          <option value="1500 - 1900">1500 - 1900</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <button type="submit" [disabled]="form.invalid">Checkout</button>
+        <button type="button" (click)="addItem()">Add</button>
+        <button type="button" (click)="clearForm()">Clear</button>
+      </td>
+    </tr>
+  </table>
+
+  <div *ngIf="Items.length <= 0">
+    <h3>Your cart is empty</h3>
+  </div>
+
+  <table *ngIf="Items.length > 0">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+      </tr>
+    </thead>
+    <tbody formArrayName="Items">
+      <tr
+        *ngFor="let li of Items.controls; let idx = index"
+        [formGroupName]="idx"
+      >
+        <td>
+          <input
+            type="text"
+            placeholder="Item"
+            size="30"
+            formControlName="item"
+          />
+        </td>
+        <td>
+          <input
+            type="number"
+            placeholder="Minimum order is 1"
+            formControlName="quantity"
+          />
+        </td>
+        <td>
+          <input
+            type="number"
+            placeholder="unit price"
+            formControlName="unit_price"
+          />
+        </td>
+        <td>
+          <button type="button" (click)="deleteItem(idx)">X</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
